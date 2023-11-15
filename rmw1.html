@@ -91,8 +91,8 @@
       <div class="message">
         <div class="title">❗️❗️❗️ ZOSTAŁEŚ ZHAKOWANY ❗️❗️❗️</div>
         <div id="desc" class="description">
-          Twoje pliki zostały zaszyfrowane przez ransomware. Aby odzyskać dostęp do swoich plików, musisz zapłacić okup w wysokości <span class="purple">1000 USD</span> w Bitcoinach. <br />Adres Bitcoina:<br />
-          <span class="purple">1234567890abcdef1234567890abcdef1234567890</span> Aby uzyskać instrukcje dotyczące płatności, skontaktuj się z nami pod adresem: <span class="purple">info@ransomware.com</span> Jeśli nie zapłacisz okupu w ciągu <span class="red">72 godzin</span>, twoje pliki zostaną trwale usunięte.
+          Twoje pliki zostały zaszyfrowane przez ransomware. Aby odzyskać dostęp do swoich plików, musisz zapłacić okup w wysokości <span id="price" class="purple">1000 USD</span> w Bitcoinach. <br />Adres Bitcoina:<br />
+          <span id="addr" class="purple">1234567890abcdef1234567890abcdef1234567890</span> Aby uzyskać instrukcje dotyczące płatności, skontaktuj się z nami pod adresem: <span id="email" class="purple">info@ransomware.com</span> Jeśli nie zapłacisz okupu w ciągu <span id="time" class="red">72 godzin</span>, twoje pliki zostaną trwale usunięte.
         </div>
         <img class="qr" src="img/qr.png" alt="" srcset="" />
         <div id="progress">
@@ -102,7 +102,28 @@
     </div>
 
     <script>
-      function move() {
+      const updateMessage = () => {
+        let urlParams = new URLSearchParams(window.location.search);
+        if (urlParams && urlParams.size > 0) {
+          if (urlParams.has('price')) {
+            document.getElementById('price').textContent = urlParams.get('price') + ' USD';
+          }
+
+          if (urlParams.has('addr')) {
+            document.getElementById('addr').textContent = urlParams.get('addr');
+          }
+
+          if (urlParams.has('email')) {
+            document.getElementById('email').textContent = urlParams.get('email');
+          }
+
+          if (urlParams.has('time')) {
+            document.getElementById('time').textContent = urlParams.get('time') + 'godzin';
+          }
+        }
+      };
+
+      const move = () => {
         const elem = document.getElementById('bar');
         const descriptionEl = document.getElementById('desc');
         let width = 0;
@@ -115,8 +136,9 @@
             descriptionEl.style.opacity = width / 100;
           }
         }, 80);
-      }
+      };
 
+      updateMessage();
       setTimeout(move, 3000);
     </script>
   </body>
