@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SzyfrowanieDanych</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        opacity: 0;
+        background-image: url('img/matrix.gif');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+
+        animation: show 1s linear 2s 1 forwards;
+      }
+
+      .message {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        background-color: yellow;
+        padding: 25px;
+        border: solid 5px white;
+        max-width: 60%;
+        border-radius: 10px;
+      }
+
+      .title {
+        font-size: 3.5rem;
+        color: purple;
+      }
+
+      .description {
+        font-size: 2rem;
+        color: rgb(8, 65, 9);
+        max-width: 60%;
+        opacity: 0;
+      }
+
+      .qr {
+        width: 200px;
+      }
+
+      #progress {
+        width: 90%;
+        border: solid 2px red;
+        padding: 3px;
+      }
+
+      #bar {
+        height: 50px;
+        background-color: #99131d;
+      }
+
+      .purple {
+        color: rebeccapurple;
+        font-weight: bold;
+      }
+
+      .red {
+        color: red;
+        font-weight: bold;
+      }
+
+      @keyframes show {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="message">
+        <div class="title">❗️❗️❗️ ZOSTAŁEŚ ZHAKOWANY ❗️❗️❗️</div>
+        <div id="desc" class="description">
+          Twoje pliki zostały zaszyfrowane przez ransomware. Aby odzyskać dostęp do swoich plików, musisz zapłacić okup w wysokości <span class="purple">1000 USD</span> w Bitcoinach. <br />Adres Bitcoina:<br />
+          <span class="purple">1234567890abcdef1234567890abcdef1234567890</span> Aby uzyskać instrukcje dotyczące płatności, skontaktuj się z nami pod adresem: <span class="purple">info@ransomware.com</span> Jeśli nie zapłacisz okupu w ciągu <span class="red">72 godzin</span>, twoje pliki zostaną trwale usunięte.
+        </div>
+        <img class="qr" src="img/qr.png" alt="" srcset="" />
+        <div id="progress">
+          <div id="bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function move() {
+        const elem = document.getElementById('bar');
+        const descriptionEl = document.getElementById('desc');
+        let width = 0;
+        let id = setInterval(() => {
+          if (width >= 100) {
+            clearInterval(id);
+          } else {
+            width++;
+            elem.style.width = width + '%';
+            descriptionEl.style.opacity = width / 100;
+          }
+        }, 80);
+      }
+
+      setTimeout(move, 3000);
+    </script>
+  </body>
+</html>
